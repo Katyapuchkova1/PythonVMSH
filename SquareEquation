@@ -1,0 +1,17 @@
+print ("Write the numbers")
+a = float(input("a = "))
+b = float(input("b = "))
+c =  float(input("c = "))
+
+desc = b**2 - 4 * a * c
+if desc > 0:
+    x1 = (-1)*b - desc**1/2 / (2 * a)
+    x2 = (-1)*b + desc**1/2 / (2 * a)
+    print (x1, x2)
+    
+elif desc == 0:
+    x = (-1) * b / (2 * a)
+    print (x)
+    
+else:
+    print ("No roots")  
