@@ -1,17 +1,15 @@
-print ("Write the numbers")
-a = float(input("a = "))
-b = float(input("b = "))
-c =  float(input("c = "))
+a = float (input ("a = "))
+b = float (input ("b = "))
+c = float (input ("c = "))
 
-desc = b**2 - 4 * a * c
-if desc > 0:
-    x1 = (-1)*b - desc**1/2 / (2 * a)
-    x2 = (-1)*b + desc**1/2 / (2 * a)
+descr = b**2 - 4 * a * c
+if descr > 0:
+    import math
+    x1 = (-b + math.sqrt(descr)) / (2 * a)
+    x2 = (-b - math.sqrt(descr)) / 2 / a
     print (x1, x2)
-    
-elif desc == 0:
-    x = (-1) * b / (2 * a)
+elif descr == 0:
+    x = -b / (2 * a)
     print (x)
-    
 else:
-    print ("No roots")  
+    print ("Корней нет")
