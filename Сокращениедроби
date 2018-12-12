@@ -1,0 +1,23 @@
+class c:
+    def __init__(self, a, b):
+        self.chisl = a
+        self.znam = b
+        
+    def socrat(self):
+        if prostdrobchisl > self.znam:
+            a = prostdrobchisl
+            b = self.znam
+        else:
+            b = prostdrobchisl
+            a = self.znam  
+        while prostdrobchisl > 0:
+            t = a / b
+            a = b
+            b = t
+        prostdrobchisl = prostdrobchisl / a
+        self.znam = self.znam / a
+        print (str(prostdrobchisl) + " / " + str(self.znam))
+
+r = c(2, 4)
+r.socrat
+
