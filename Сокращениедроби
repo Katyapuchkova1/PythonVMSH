@@ -17,6 +17,13 @@ class c:
         prostdrobchisl = prostdrobchisl / a
         self.znam = self.znam / a
         print (str(prostdrobchisl) + " / " + str(self.znam))
+    def __add__(self, other):
+        a = self.znam
+        b = other.znam
+        while b > o:
+            t = a % b
+            a = b
+            b = t
 
 r = c(2, 4)
 r.socrat
