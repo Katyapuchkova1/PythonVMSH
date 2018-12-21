@@ -4,7 +4,7 @@ class c:
         self.znam = b
         
     def socrat(self):
-        if prostdrobchisl > self.znam:
+        if self.chisl > self.znam:
             a = prostdrobchisl
             b = self.znam
         else:
@@ -14,17 +14,17 @@ class c:
             t = a / b
             a = b
             b = t
-        prostdrobchisl = prostdrobchisl / a
-        self.znam = self.znam / a
-        print (str(prostdrobchisl) + " / " + str(self.znam))
+        print (str(prostdrobchisl / a) + " / " + str(self.znam / a))
     def __add__(self, other):
         a = self.znam
         b = other.znam
-        while b > o:
+        while b > 0:
             t = a % b
             a = b
             b = t
-
+        return "{}/{}".format(self.znam / a * other.chisl + other.znam / a * self.chisl, other.znam*self.znam / a)
+    def __mul__(self, other):
+        multiplicated = c(self.chisl*other.chisl, self.znam*other.znam)
+        multiplicated.socrat()
 r = c(2, 4)
-r.socrat
-
+r.socrat()
