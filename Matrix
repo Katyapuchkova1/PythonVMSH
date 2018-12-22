@@ -1,8 +1,10 @@
 class  Matrix:
+    
     def __init__(self, body, nrow, ncol):
-        self.body = body
         self.nrow = nrow
         self.ncol = ncol
+        self.body = body
+    
     def __add__(self, other):
         if self.nrow == other.nrow and self.ncol == other.ncol:
             FinalMatrix = []
@@ -10,33 +12,33 @@ class  Matrix:
                 FinalMatrix.append([])
                 for j in range (0, self.ncol):
                     FinalMatrix[i].append(self.body[i][j] + other.body[i][j])
-            print (FinalMatrix)
+            return (FinalMatrix)
         else:
-            print ("Sorry can not add different sized") 
-    
+            return ("Sorry can not add different sized")
+
     def __mul__(self, other):
         if self.ncol == other.nrow:
-            FinalMatrix = []    
-            for i in range (self.nrow):
-                FinalMatrix = ([])
-                for j in range (other.ncol):
+            FinalMatrix = []
+            for i in range(self.nrow):
+                FinalMatrix.append([])
+                for j in range(other.ncol):
                     FinalMatrix[i].append(0)
             for m in range (0, self.nrow):
-                for j in range (0, other.col):
+                for j in range (0, other.ncol):
                     for i in range (0, self.ncol):
-                        FinalMatrix[m][j] = FinalMatrix[m][j] + self.body[m][i] * other.body[i][j]
-            return FinalMatrix              
+                        FinalMatrix[m][j] = FinalMatrix[m][j] + (self.body[m][i] * other.body[i][j])
+            return FinalMatrix
         else:
-            print("Sorry can not print")
-    
+            print ("sorry")
+
     def transpose(self):
         transposedmatrix = []
-        for i in range (0, self.nrow):
+        for i in range (0, self.ncol):
             transposedmatrix.append([])
-            for j in range (0, self.ncol):
+            for j in range (0, self.nrow):
                 transposedmatrix[i].append(self.body[j][i])
         return transposedmatrix
-                
+
     def trace(self):
         trace = 0
         if self.nrow == self.ncol:
