@@ -1,30 +1,25 @@
-class c:
+def GCD(a, b):
+    
+    if a > b:
+        x = a
+        y = b
+    else:
+        y = a
+        x = b
+    while y > 0:
+        t = x / y
+        x = y
+        y = t
+    return x
+
+class Rational:
+    
     def __init__(self, a, b):
         self.chisl = a
         self.znam = b
         
     def socrat(self):
-        if self.chisl > self.znam:
-            a = prostdrobchisl
-            b = self.znam
-        else:
-            b = prostdrobchisl
-            a = self.znam  
-        while prostdrobchisl > 0:
-            t = a / b
-            a = b
-            b = t
-        print (str(prostdrobchisl / a) + " / " + str(self.znam / a))
-    def __add__(self, other):
-        a = self.znam
-        b = other.znam
-        while b > 0:
-            t = a % b
-            a = b
-            b = t
-        return "{}/{}".format(self.znam / a * other.chisl + other.znam / a * self.chisl, other.znam*self.znam / a)
-    def __mul__(self, other):
-        multiplicated = c(self.chisl*other.chisl, self.znam*other.znam)
-        multiplicated.socrat()
-r = c(2, 4)
-r.socrat()
+        print (str(self.chisl/ GCD(self.chisl, self.znam)) + " / " + str(self.znam / GCD(self.chisl, self.znam)))
+   
+First = Rational(2, 4)
+First.socrat()
