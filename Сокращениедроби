@@ -19,7 +19,18 @@ class Rational:
         self.znam = b
         
     def socrat(self):
-        print (str(self.chisl/ GCD(self.chisl, self.znam)) + " / " + str(self.znam / GCD(self.chisl, self.znam)))
-   
+        return "{}/{}".format(self.chisl / GCD(self.chisl, self.znam), self.znam / GCD(self.chisl, self.znam))
+    def __add__(self, other):
+        if type(self) == type(other):
+            newdrob = Rational(self.chisl * other.znam + other.chisl*self.znam, self.znam*other.znam)
+            return newdrob.socrat()
+        elif type(other) == int:
+            newdrob = Rational(self.chisl + other*self.znam, self.znam)
+            return newdrob.socrat()
+        else:
+            print("Sorry")
+    def __mul__():
+        
+
 First = Rational(2, 4)
-First.socrat()
+print (5 + First)
