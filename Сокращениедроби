@@ -10,17 +10,24 @@ def GCD(a, b):
         t = x % y
         x = y
         y = t
-    return x
+    if x > 0:return x
+    else: return -x
+        
 
 class Rational:
     
     def __init__(self, a, b):
         self.chisl = a
         self.znam = b
+    def __str__(self):
+        return "{}/{}".format(self.chisl / GCD(self.chisl, self.znam), self.znam / GCD(self.chisl, self.znam))   
         
     def socrat(self):
-        return "{}/{}".format(self.chisl / GCD(self.chisl, self.znam), self.znam / GCD(self.chisl, self.znam))
+        newdrob = Rational (self.chisl / GCD(self.chisl, self.znam), self.znam / GCD(self.chisl, self.znam))
+        return newdrob
+    
     def __add__(self, other):
+        
         if type(self) == type(other):
             newdrob = Rational(self.chisl * other.znam + other.chisl*self.znam, self.znam*other.znam)
             return newdrob.socrat()
@@ -29,6 +36,7 @@ class Rational:
             return newdrob.socrat()
         else:
             print("Sorry")
+    
     def __mul__(self, other):
         if type(self) == type(other):
             newdrob = Rational(self.chisl*other.chisl, self.znam*other.znam)
@@ -46,9 +54,41 @@ class Rational:
         return (other*self)
      
     def __div__(self, other):
-        newdrob = Rational(other.znam, other.chisl)
-        return self*newdrob
-
-First = Rational(2, 4)
-Second = Rational(3, 5)
-print (First / Second)
+        if type(self) == type(other):
+            newdrob = Rational(other.znam * self.chisl, other.chisl*self.znam)
+            return newdrob.socrat()
+        elif type(other) == int:
+            newdrob = Rational (self.chisl, self.znam*other)
+            return newdrob.socrat() 
+        else:
+            print ("Sorry") 
+    
+    def __rdiv__(self, other):
+        
+        if type(self) == type(other):
+            newdrob = Rational(other.znam * self.chisl, other.chisl*self.znam)
+            return newdrob.socrat() 
+        elif type(other) == int:
+            newdrob = Rational (self.znam*other, self.chisl)
+            return newdrob.socrat() 
+        else: 
+            print ("Sorry")            
+    
+    def __pow__(self, n):
+        newdrob = 1
+        i = 1
+        a = 1
+        b = 1
+        while i <= n:
+            a = a*self.chisl
+            b = b*self.znam
+            i = i + 1
+        newdrob = Rational (a, b)
+        return newdrob.socrat()
+        
+    def __sub__(self, other):
+        return self + other*(-1)  
+              
+    
+    def __rsub__(self, other):
+        return self*(-1) + other
