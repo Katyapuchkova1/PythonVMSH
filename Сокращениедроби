@@ -6,8 +6,8 @@ def GCD(a, b):
     else:
         y = a
         x = b
-    while y > 0:
-        t = x / y
+    while y != 0:
+        t = x % y
         x = y
         y = t
     return x
@@ -29,8 +29,26 @@ class Rational:
             return newdrob.socrat()
         else:
             print("Sorry")
-    def __mul__():
+    def __mul__(self, other):
+        if type(self) == type(other):
+            newdrob = Rational(self.chisl*other.chisl, self.znam*other.znam)
+            return newdrob.socrat()
+        elif type(other) == int:
+            newdrob = Rational(self.chisl*other, self.znam)
+            return newdrob.socrat()
+        else:
+            print ("Sorry")
         
+    def __radd__(other, self):
+        return (other + self)
+        
+    def __rmul__(other, self):
+        return (other*self)
+     
+    def __div__(self, other):
+        newdrob = Rational(other.znam, other.chisl)
+        return self*newdrob
 
 First = Rational(2, 4)
-print (5 + First)
+Second = Rational(3, 5)
+print (First / Second)
