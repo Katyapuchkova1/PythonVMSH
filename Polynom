@@ -1,0 +1,162 @@
+import math
+class Polynom:
+    def __init__(self, coeffs):
+        self.coeffs = coeffs
+        self.deg = len(coeffs) - 1
+    
+    def __mul__(self, other):
+        if type(other) in [float, int]:
+            return Polynom(list(map(lambda x: x*other, self.coeffs)))
+        else:
+            print("Sorry")
+    
+    def __neg__(self):
+        return self*(-1)
+    
+    def __str__(self):
+        res = ""
+        for i in range(self.deg + 1):
+            c = self.coeffs[-1 - i]
+            if c == 0:
+                continue
+            elif c == 1:
+                res += "+ x^{} ".format(self.deg - i)
+            elif c == -1:
+                res += "- x^{} ".format(self.deg - i)
+            elif c > 0:
+                res += "+ {:.2f}*x^{} ".format(c, self.deg - i)
+            elif c < 0:
+                res += "- {:.2f}*x^{} ".format(-c, self.deg - i)
+        
+        return res.strip("+ ")
+    
+    def __divmod__(self, other):
+        mod = Polynom(list(self.coeffs))
+        div_deg = mod.deg - other.deg
+        div_coeffs = []
+        
+        
+        while mod.deg >= other.deg:
+            c = mod.coeffs[-1] / other.coeffs[-1]
+            div_coeffs.append(c)
+            
+            for i in range(other.deg + 1):
+                mod.coeffs[-1 - i] -= c * other.coeffs[-1 - i]
+            
+            zero_tail_len = 1
+            for i in range(1, mod.deg + 1):
+                if abs(mod.coeffs[-1 - i]) <= 10**(-9):
+                    zero_tail_len += 1
+                else:
+                    break
+            
+            prev_deg = mod.deg
+            mod = Polynom(mod.coeffs[0:-zero_tail_len])
+            new_deg = mod.deg
+            
+            for i in range(prev_deg - new_deg - 1):
+                div_coeffs.append(0)
+        
+        div = Polynom(div_coeffs[:div_deg + 1][::-1])
+        return div, mod
+    
+    def derivative(self):
+        new_coeffs = []
+        for i in range(1, self.deg + 1):
+            new_coeffs.append(self.coeffs[i]*i)
+
+        return Polynom(new_coeffs)
+    
+    def __floordiv__(self, other):
+        return self.__divmod__(other)[0]
+
+    def __mod__(self, other):
+        return self.__divmod__(other)[1]
+        
+    def __bool__(self):
+        if self.coeffs != []:
+            return True
+        else:
+            return False
+    
+    def __call__(self, x):
+        result = 0
+        for i in range(self.deg + 1):
+            result += self.coeffs[i]*x**i
+        
+        return result
+    
+    def number_of_roots(self, a, b):
+        p = self // gcd(self, self.derivative())
+        p1, p2 = p, p.derivative()
+        system = [p1, p2]
+        
+        while p2:
+            p1, p2 = p2, -p1%p2
+            system.append(p2)
+        
+        system = system[:-1]
+        
+        list_a = []
+        list_b = []
+        for s in system:
+            if s(a) != 0:
+                list_a.append(s(a))
+            if s(b) != 0:
+                list_b.append(s(b))
+        
+        n_a = 0
+        n_b = 0
+        for i in range(len(list_a) - 1):
+            if list_a[i] * list_a[i + 1] < 0:
+                n_a += 1
+            if list_b[i] * list_b[i + 1] < 0:
+                n_b += 1
+        
+        return n_a - n_b
+        
+    def findallroots(self):
+		list_roots = []
+        a = -(1 + (max(math.fabs(self.coeffs[i]) for i in range(self.deg))) / math.fabs(self.coeffs[self.deg]))
+        b = 1 + (max(math.fabs(self.coeffs[i]) for i in range(self.deg)) / math.fabs(self.coeffs[self.deg]))
+        b1 = b
+        a1 = a
+        if self(a) != 0 and self(b) != 0:
+        	for i in range(number_of_roots(self, a, b)):
+        		while number_of_roots(self, a1, b1) > 1:
+					if self(a1) == 0:
+						list_roots.append(a1)
+					if self(b1) == 0:
+						list-roots 
+					b1 = (b1 - a1)/2 + a1
+				a2 = a1
+				b2 = b1
+				a1 = b1
+				b1 = b
+				while b2 - a2 > 10**-9:
+					if self((b2 - a2) / 2 + a2) * b2 < 0:
+						b2 = b2 - ((b2 - a2) / 2)
+					else:
+						a2 = a2 + ((b2 - a2) / 2)
+				list_roots.append(a2)
+		else:
+			if self(a) == 0:
+				list_roots.append(a)
+			if self(b) == 0:
+				list_roots.append(b)
+			
+		return list_roots	
+			
+        
+
+def gcd(p1, p2):
+    while p2:
+        p1, p2 = p2, p1%p2
+    
+    return p1
+
+
+    
+        
+p1 = Polynom([24, -50, 35, -10, 1])
+print(p1.number_of_roots(0, 3.1))
