@@ -29,12 +29,12 @@ class Polynom:
     def __mul__(self, other):
         newPolynom = Polynom([0 for i in range(self.deg+other.deg+1)])
         for i in range(other.deg+1):
-            Polynom1 = Polynom([0 for i in range(self.deg+other.deg+1)])
+            Polynom1 = Polynom([0 for a in range(self.deg+other.deg+1)])
             for j in range(self.deg+1):
                 Polynom1.coeffs[i+j] = self.coeffs[j]*other.coeffs[i]
             newPolynom = newPolynom + Polynom1
         return newPolynom
 a = Polynom([4, 3, 4])
 b = Polynom([5, 6, 7, 8])
-z = a + b
 print(a*b)
+
